@@ -1,0 +1,167 @@
+.Sidebar {
+  // width: 225px;
+  //   height: 100vh;
+  //   z-index: 0;
+  //   position: fixed;
+  //   top: 0;
+  //   right: 0;
+  //   left: 0;
+  //   flex-basis: 225px;
+  //   flex-shrink: 0;
+  //   transition: transform 0.15s ease-in-out;
+  background-color: #212529;
+
+  max-height: calc(100vh - 55px);
+  .sidebarWrapper {
+    // padding-top: 56px;
+    // background-color: #212529;
+    // color: rgba(255, 255, 255, 0.5);
+    // display: flex;
+    // flex-direction: column;
+    // height: 100%;
+    // flex-wrap: nowrap;
+
+    color: rgb(228, 228, 228);
+
+    max-height: calc(100vh - 55px);
+    min-height: calc(100vh - 55px);
+
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+    .sidebarTop {
+      // padding-top: 50px;
+      position: relative;
+
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      justify-content: space-between;
+      overflow-x: auto;
+      // width: 100%;
+      padding-top: 30px !important;
+      margin-bottom: 83px !important;
+      overflow-y: auto;
+      padding: 0 20px;
+      flex-grow: 1;
+      flex: 4;
+      h3 {
+        font-size: 14px;
+        text-transform: uppercase;
+        margin-bottom: 20px;
+      }
+      .core {
+        text-align: left;
+        margin-top: 20px;
+        .element {
+          padding: 10px;
+          display: flex;
+          gap: 5px;
+          cursor: pointer;
+          svg {
+            font-size: 20px;
+          }
+          span {
+            font-size: 20px;
+          }
+        }
+      }
+      .pages {
+        text-align: left;
+        margin-top: 20px;
+
+        .element {
+          padding: 10px;
+         
+
+          .elementBtn {
+            cursor: pointer;
+            //  padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            // gap: 5px;
+            div {
+              display: flex;
+              align-items: center;
+              gap: 5px;
+            }
+            svg {
+              font-size: 20px;
+            }
+            span {
+              font-size: 20px;
+            }
+          }
+          .dropdownTree {
+            padding: 15px;
+            ul {
+              flex-direction: column;
+              align-items: flex-start;
+              gap: 10px;
+              li {
+                width: 100%;
+                padding: 5px 10px;
+                a{
+                  color: rgb(165, 165, 165);
+                }
+              }
+              .active {
+                background-color: aliceblue;
+                color: black;
+
+                width: 100%;
+              }
+            }
+          }
+        }
+      }
+      .features {
+        margin-top: 20px;
+        text-align: left;
+
+        h3 {
+          margin-bottom: 20px;
+        }
+        .element {
+          padding: 20px 10px !important;
+          padding: 10px;
+          cursor: pointer;
+          display: flex;
+          gap: 5px;
+          svg {
+            font-size: 20px;
+          }
+          span {
+            font-size: 16px;
+          }
+        }
+      }
+    }
+    .sidebarBottom {
+      // background-color: #343a40;
+      flex: 1;
+      // padding: 0.75rem;
+      //     flex-shrink: 0;
+      width: 100%;
+      position: absolute;
+      background-color: #343a40;
+      text-align: left;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+
+      color: rgb(228, 228, 228);
+      .footer {
+        .footerBlock {
+          padding: 20px;
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+        }
+      }
+    }
+  }
+}
