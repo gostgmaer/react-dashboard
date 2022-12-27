@@ -1,0 +1,29 @@
+.tiles{
+    // max-width: 100%;
+    margin: 20px 30px;
+    .card{
+       // min-width: 25%;
+       border: 1px solid gray;
+       border-radius: 10px;
+      // padding: 20px;
+        .card-header{
+            text-align: start;
+            padding: 10px;
+
+        }
+        .card-body{
+            padding: 10px;
+        }
+        .card-footer{
+            display: flex;
+            cursor: pointer;
+            align-items: center;
+            justify-content: space-between;
+            border-top: 1px solid gray;
+            padding: 10px;
+        }
+    }
+    .cardWrapper{
+        width: 100%;
+    }
+}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./header.scss";
 import {
   MdArrowDropDown,
@@ -7,13 +7,21 @@ import {
   MdPerson,
   MdSearch,
 } from "react-icons/md";
+import { useGlobalContext } from "../../Context/Context";
 const Header = () => {
+
+  const {toggleSidebarShow} = useGlobalContext()
+const [hamburger, setHamburger] = useState(false);
+
+
+
+
   return (
     <div className="Header">
       <div className="left">
         <div className="logo">Gost Dashboard</div>
         <div className="toggle">
-          <MdMenu></MdMenu>
+          <MdMenu onClick={toggleSidebarShow}></MdMenu>
         </div>
       </div>
       <div className="right">
@@ -31,12 +39,11 @@ const Header = () => {
         </div>
         <div className="hamburgerUser">
           <div className="dropdown">
-            <div className="icons">
-              <MdPerson className="person"></MdPerson>
-              <MdArrowDropUp></MdArrowDropUp>
-              <MdArrowDropDown></MdArrowDropDown>
+            <div className="icons" onClick={()=>setHamburger(!hamburger)}  >
+              <MdPerson  className="person"></MdPerson>
+           {hamburger?<MdArrowDropUp></MdArrowDropUp>:<MdArrowDropDown></MdArrowDropDown>}
             </div>
-            <ul className="dropdown-menu" style={{}}>
+            <ul className="dropdown-menu" style={hamburger?{display:'block'}:{}}>
               <li className="dropdown-item">Setting</li>
               <li className="dropdown-item">Profile</li>
               <hr />

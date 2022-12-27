@@ -39,15 +39,38 @@
 
 .container{
   display: flex;
-  align-items: center;
+  align-items: self-start;
   justify-content: space-between;
   .Sidebar{
-    flex: 1;
+    flex: 1.1;
+    position: sticky;
+    top: 55px;
+    max-width: 22%;
+    height: calc(100vh - 55px);
+    max-height: calc(100vh - 55px);
+    
+    
 
   }
   .elements{
     flex: 4;
     width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-width: 0;
+   // flex-grow: 1;
+    min-height: calc(100vh - 55px);
     
+  }
+}
+main{
+
+  header{
+    position: sticky;
+    top: 0;
+
+    z-index: 5;
   }
 }
