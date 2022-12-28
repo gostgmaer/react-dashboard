@@ -6,9 +6,11 @@ import Chart from "../../Pages/Charts/Chart";
 import Contact from "../../Pages/Contact/Contact";
 import Dashboard from "../../Pages/Dashboard/Dashboard";
 import Login from "../../Pages/Login/Login";
+import Profile from "../../Pages/Profiles/Profile";
 import Reports from "../../Pages/Reports/Reports";
 import Revinue from "../../Pages/Revinue/Revinue";
 import Sales from "../../Pages/Sales/Sales";
+import Settings from "../../Pages/Settings/Settings";
 import Signup from "../../Pages/Signup/Signup";
 import Tables from "../../Pages/Tables/Tables";
 
@@ -26,6 +28,8 @@ const AppRouting = () => {
         <Route path="/tables" element={<Tables></Tables>}></Route>
         <Route path="/login" element={<Login></Login>}></Route>
         <Route path="/singup" element={<Signup></Signup>}></Route>
+        <Route path="/profile" element={<Profile></Profile>}></Route>
+        <Route path="/setting" element={<Settings></Settings>}></Route>
       </Routes>
       <Footer></Footer>
     </Fragment>
