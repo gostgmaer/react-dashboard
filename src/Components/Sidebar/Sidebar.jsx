@@ -21,7 +21,7 @@ const Sidebar = () => {
   return (
     <div
       className="Sidebar"
-      style={toggleSidebar ? { flex: 0,width:0} : {flex: 1}}>
+      style={toggleSidebar ? { flex: 0,visibility:"hidden",width:0,overflow:"hidden"} : {}}>
       <div className="sidebarWrapper">
        <div className="sidebarTop"> <div className="core">
           <h3>Core</h3>

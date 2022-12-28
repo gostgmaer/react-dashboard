@@ -3,17 +3,22 @@ import App from "../App";
 
 const AppContext = React.createContext(null);
 const AppProvider = ({ children }) => {
+  const [toggleSidebar, setToggleSidebar] = useState(false);
+  const [islouout, setIslouout] = useState(true);
 
-    const [toggleSidebar, setToggleSidebar] = useState(false);
+  const changelogout = ()=>{
+    setIslouout(!islouout)
+  }
+  const toggleSidebarShow = () => {
+    setToggleSidebar(!toggleSidebar);
+  };
 
-
-    const toggleSidebarShow =()=>{
-        setToggleSidebar(!toggleSidebar)
-    }
-
-  return <AppContext.Provider value={{toggleSidebarShow,toggleSidebar
-
-  }}> {children} </AppContext.Provider>;
+  return (
+    <AppContext.Provider value={{ toggleSidebarShow,changelogout, toggleSidebar,islouout, setIslouout }}>
+      {" "}
+      {children}{" "}
+    </AppContext.Provider>
+  );
 };
 
 export const useGlobalContext = () => {

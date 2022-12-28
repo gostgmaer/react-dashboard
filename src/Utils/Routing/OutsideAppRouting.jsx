@@ -7,6 +7,7 @@ const OutsideAppRouting = () => {
   return (
     <Routes>
         <Route path="/login" element={<Login></Login>}></Route>
+        <Route path="/" element={<Login></Login>}></Route>
         <Route path="/singup" element={<Signup></Signup>}></Route>
     </Routes>
   )
