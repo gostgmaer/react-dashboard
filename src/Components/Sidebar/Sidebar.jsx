@@ -13,7 +13,7 @@ import { MdArrowForward } from "react-icons/md";
 import About from "../../Pages/Abouts/About";
 import Contact from "../../Pages/Contact/Contact";
 import { Data } from "../../Assets/staticData/Data";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 const Sidebar = () => {
   const { toggleSidebar } = useGlobalContext();
   const [page, setPage] = useState(false);
@@ -21,13 +21,13 @@ const Sidebar = () => {
   return (
     <div
       className="Sidebar"
-      style={toggleSidebar ? { flex: 0, display: "none" } : {}}>
+      style={toggleSidebar ? { flex: 0,width:0} : {flex: 1}}>
       <div className="sidebarWrapper">
        <div className="sidebarTop"> <div className="core">
           <h3>Core</h3>
           <div className="element">
             <MdDashboard></MdDashboard>
-            <span>Dashboard</span>
+            <Link to={'/'}>Dashboard</Link>
           </div>
         </div>
         <div className="pages">

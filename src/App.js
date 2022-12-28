@@ -11,7 +11,7 @@ function App() {
     <div className="App">
     <main>
      
-    <header className="headerBlock"><Header></Header></header>
+    <header className="headerBlock"><Header logout={undefined}></Header></header>
     <div className="container"> <Sidebar></Sidebar>
     <div className="elements"> <AppRouting></AppRouting></div>
      </div>

@@ -8,7 +8,8 @@ import {
   MdSearch,
 } from "react-icons/md";
 import { useGlobalContext } from "../../Context/Context";
-const Header = () => {
+import { Link } from "react-router-dom";
+const Header = ({logout}) => {
 
   const {toggleSidebarShow} = useGlobalContext()
 const [hamburger, setHamburger] = useState(false);
@@ -44,10 +45,10 @@ const [hamburger, setHamburger] = useState(false);
            {hamburger?<MdArrowDropUp></MdArrowDropUp>:<MdArrowDropDown></MdArrowDropDown>}
             </div>
             <ul className="dropdown-menu" style={hamburger?{display:'block'}:{}}>
-              <li className="dropdown-item">Setting</li>
-              <li className="dropdown-item">Profile</li>
+              <li className="dropdown-item"><Link to={'/setting'}>Setting</Link></li>
+              <li className="dropdown-item"><Link to={'/profile'}>Profile</Link></li>
               <hr />
-              <li className="dropdown-item">Logout</li>
+              <li className="dropdown-item" onClick={logout}>Logout</li>
             </ul>
           </div>
         </div>

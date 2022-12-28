@@ -94,13 +94,11 @@ const Table = () => {
             <ul
               className="dropdown-menu"
               style={perpage ? { display: "block" } : {display:'none'}}>
-              {
-                <ul>
-                  {Array.from(Array(6).keys()).map((item) => (
-                    // @ts-ignore
-                    <li onClick={(e)=>setshowItem(e.target.innerText)} key={item}>{(item+1) *5}</li>
-                  ))}
-                </ul>
+              
+                {Array.from(Array(6).keys()).map((item) => (
+                  // @ts-ignore
+                  <li onClick={(e)=>{setshowItem(e.target.innerText);setPerpage(!perpage)}} key={item}>{(item+1) *5}</li>
+                ))
               }
             </ul>
           </div>

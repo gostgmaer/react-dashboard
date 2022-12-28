@@ -1,32 +1,134 @@
-.Dashboard{
-
-    margin: 20px;
-    .tiles{
+.Dashboard {
+  margin: 20px;
+  .tiles {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+  }
+  .dataTable {
+    margin: 50px 0;
+    .Table {
+     // padding: 20px;
+      padding-top: 0;
+      background: #ffffff;
+      border-radius: 5px;
+       border: 0.5px solid green;
+      .heading {
         display: flex;
+        border-radius: 5px;
+        padding: 10px 20px ;
+        background-color: rgb(244, 244, 244);
+        gap: 5px;
         align-items: center;
-        justify-content: space-between;
-        gap: 30px;
+      }
+      .body {
+        padding: 20px;
+        .filter {
+          .filterBlock {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0 ;
+            .dropdown {
+             
+              position: relative;
+              .drop-top {
+                display: flex;
+                gap: 10px;
+                align-items: center;
+                .icons{
+                  border: 1px solid;
+                  padding: 5px;
+                  border-radius: 5px;
+                }
+               
+              }
+              .dropdown-menu{
+                top: 100%;
+                margin-top: 0.125rem;
+                //right: 0;
+                left: auto;
+                list-style: none;
+                position: absolute;
+                z-index: 20;
+                display: none;
+                min-width: 5rem;
+              //  padding: 0.5rem;
+                font-size: 1rem;
+                color: #212529;
+                text-align: left;
+                background-color: #fff;
+                background-clip: padding-box;
+                border: 1px solid rgba(0, 0, 0, 0.15);
+                border-radius: 0.25rem;
+                li{
+                  padding: 0.25rem 1rem;
+                  &:hover{
+                    background-color: #0747ea;
+                    color: #fff;
+                  }
+                }
+
+              }
+            }
+            .right{
+              input{
+                padding: 5px;
+              }
+            }
+          }
+        }
+        .pageIndex{
+          margin: 20px 0;
+          .index{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            .right{
+              .tablepageindex{
+                ul{
+                  gap: 0;
+                  li{
+                    border: 0.05px solid gray;
+                    padding: 5px 8px;
+                   color: #0747ea;
+                    width: auto;
+                    &:hover{
+                      background-color: #0747ea;
+                      color: white;
+                    }
+
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
-    .dataTable{
-        table.customTable {
-            width: 100%;
-            background-color: #FFFFFF;
-            border-collapse: collapse;
-            border-width: 2px;
-            border-color: #7ea8f8;
-            border-style: solid;
-            color: #000000;
-          }
-          
-          table.customTable td, table.customTable th {
-            border-width: 2px;
-            border-color: #7ea8f8;
-            border-style: solid;
-            padding: 5px;
-          }
-          
-          table.customTable thead {
-            background-color: #7ea8f8;
-          }
+
+    .customTable {
+      width: 100%;
+      background-color: #ffffff;
+      border-collapse: collapse;
+      border-width: 1px;
+      border-color: #545454;
+      border-style: solid;
+      color: #000000;
     }
+
+    table.customTable td,
+    table.customTable th {
+      border-width: 1px;
+      border-color: #4b4b4b;
+      border-style: solid;
+      padding: 5px;
+    }
+
+    table.customTable thead {
+      background-color: #7ea8f8;
+      text-transform: capitalize;
+    }
+  }
 }
