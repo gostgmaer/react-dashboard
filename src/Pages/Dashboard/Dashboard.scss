@@ -54,7 +54,7 @@
                 z-index: 20;
                 display: none;
                 min-width: 5rem;
-                padding: 0.5rem;
+              //  padding: 0.5rem;
                 font-size: 1rem;
                 color: #212529;
                 text-align: left;
@@ -62,7 +62,45 @@
                 background-clip: padding-box;
                 border: 1px solid rgba(0, 0, 0, 0.15);
                 border-radius: 0.25rem;
+                li{
+                  padding: 0.25rem 1rem;
+                  &:hover{
+                    background-color: #0747ea;
+                    color: #fff;
+                  }
+                }
 
+              }
+            }
+            .right{
+              input{
+                padding: 5px;
+              }
+            }
+          }
+        }
+        .pageIndex{
+          margin: 20px 0;
+          .index{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            .right{
+              .tablepageindex{
+                ul{
+                  gap: 0;
+                  li{
+                    border: 0.05px solid gray;
+                    padding: 5px 8px;
+                   color: #0747ea;
+                    width: auto;
+                    &:hover{
+                      background-color: #0747ea;
+                      color: white;
+                    }
+
+                  }
+                }
               }
             }
           }
@@ -74,16 +112,16 @@
       width: 100%;
       background-color: #ffffff;
       border-collapse: collapse;
-      border-width: 2px;
-      border-color: #7ea8f8;
+      border-width: 1px;
+      border-color: #545454;
       border-style: solid;
       color: #000000;
     }
 
     table.customTable td,
     table.customTable th {
-      border-width: 2px;
-      border-color: #7ea8f8;
+      border-width: 1px;
+      border-color: #4b4b4b;
       border-style: solid;
       padding: 5px;
     }
