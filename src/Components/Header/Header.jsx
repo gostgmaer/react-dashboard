@@ -9,10 +9,10 @@ import {
 } from "react-icons/md";
 import { useGlobalContext } from "../../Context/Context";
 import { Link } from "react-router-dom";
-const Header = ({ logout }) => {
-  const { islouout } = useGlobalContext();
+const Header = ({  }) => {
+  const { islouout,toggleSidebarShow,setIslouout } = useGlobalContext();
 
-  const { toggleSidebarShow } = useGlobalContext();
+ 
   const [hamburger, setHamburger] = useState(false);
 
   const RightElements = () => {
@@ -50,7 +50,7 @@ const Header = ({ logout }) => {
                 <Link to={"/profile"}>Profile</Link>
               </li>
               <hr />
-              <li className="dropdown-item" onClick={logout}>
+              <li className="dropdown-item" onClick={setIslouout}>
                 Logout
               </li>
             </ul>

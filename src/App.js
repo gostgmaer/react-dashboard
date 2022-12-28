@@ -9,11 +9,14 @@ import { useGlobalContext } from "./Context/Context";
 function App() {
   const { islouout, setIslouout } = useGlobalContext();
 
+  window.onclick=()=>{
+   console.log("event" );
+  }
   return (
     <div className="App">
       <main>
       <header className="headerBlock">
-              <Header logout={undefined}></Header>
+              <Header ></Header>
             </header>
         {islouout ? (
           <OutsideAppRouting></OutsideAppRouting>
