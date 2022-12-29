@@ -8,7 +8,7 @@ import { useGlobalContext } from "./Context/Context";
 import Loading from "./Utils/Loading/Loading";
 
 function App() {
-  const { isloadin, setIsloadin } = useGlobalContext();
+  const { isloading, setIsloading} = useGlobalContext();
 
   // window.onclick=()=>{
   //  console.log("event" );
@@ -21,7 +21,7 @@ function App() {
             </header>
        
           <Fragment>
-            {isloadin?<Loading></Loading>: <AppRouting></AppRouting>}
+            {isloading?<Loading></Loading>: <AppRouting></AppRouting>}
            
             {/* <div className="container">
             

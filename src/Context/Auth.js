@@ -12,12 +12,18 @@ const AuthContext = React.createContext(null);
     setCurrentUser(user)
     console.log(currentUser);
   }
-  const logout = ()=>{
-    setCurrentUser(null)
-  }
+ 
+  //   const signin = (email,pass)=>{
+  // return auth.signInWithEmailAndPassword(email,pass)
+    
+  // }
+  // const signup = (email,pass)=>{
+  //   return auth.createUserWithEmailAndPassword(email,pass)
+     
+  //  }
 
   return (
-    <AuthContext.Provider value={{ currentUser,login,logout }}>
+    <AuthContext.Provider value={{ currentUser, setCurrentUser,login }}>
       {children}
     </AuthContext.Provider>
   );

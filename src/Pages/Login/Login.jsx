@@ -14,25 +14,38 @@ import { AuthContext, useAuth } from "../../Context/Auth";
 import Loading from "../../Utils/Loading/Loading";
 
 const Login = () => {
-  const { login } = useAuth();
+
+  const { isloading, setIsloading,success, setSuccess,error, setError } = useGlobalContext();
+const { login,currentUser, setCurrentUser } = useAuth();
   const navigate = useNavigate();
-  const { setIsloadin, isloadin } = useGlobalContext();
   const location = useLocation();
   const redirectPath = location.state?.path || "/";
   const [username, setUsername] = useState("");
   const [pass, setPass] = useState("");
-  const [success, setSuccess] = useState(null);
-  const [error, setError] = useState(null);
+  
+
   let Focus = useRef(null);
+
   useEffect(() => {}, []);
 
-  const handleLogin = () => {
-    login(username);
-    navigate(redirectPath, { replace: true });
+  // const handleLogin = () => {
+  //   login(username);
+  //   navigate(redirectPath, { replace: true });
+  // };
+
+  window.onload = () => {
+    setIsloading(true)
+    setCurrentUser(null)
+    setSuccess(null)
+    setError(null)
+    
+    setIsloading(false)
   };
 
+ 
+
   const loginsubmit = () => {
-    setIsloadin(true);
+    setIsloading(true);
     const data = {
       user: username,
       pass: pass,
@@ -42,7 +55,7 @@ const Login = () => {
     signInWithEmailAndPassword(firebase, username, pass)
       .then((res) => {
         console.log(res.user);
-        login(username);
+        setCurrentUser(res.user)
         setSuccess("login Success");
         navigate(redirectPath, { replace: true });
       })
@@ -51,7 +64,7 @@ const Login = () => {
         setError(error.message);
       });
 
-    setIsloadin(false);
+    setIsloading(false);
   };
 
 
@@ -86,12 +99,12 @@ const Login = () => {
 
   return (
     <Fragment>
-      {isloadin ? (
+      {isloading ? (
         <Loading></Loading>
       ) : success !== null || error!==null ? (
         <MessageComponent></MessageComponent>
       ) : (
-        <div className="Login">
+        <div className="Login" >
           <div className="login-form-wrap">
             <div className="heading">
               <h2>Login</h2>

@@ -11,12 +11,12 @@ import { useGlobalContext } from "../../Context/Context";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../Context/Auth";
 const Header = ({}) => {
-  const { islouout, toggleSidebarShow, setIslouout } = useGlobalContext();
+  const { logout, toggleSidebarShow, setIslouout } = useGlobalContext();
   const { currentUser } = useAuth();
 
   const [hamburger, setHamburger] = useState(false);
 
-  const { logout } = useAuth();
+
   const navigate = useNavigate();
   const handleLogout = () => {
     logout();
@@ -60,7 +60,7 @@ const Header = ({}) => {
                 <Link to={"/profile"}>Profile</Link>
               </li>
               <hr />
-              <li className="dropdown-item" onClick={handleLogout}>
+              <li className="dropdown-item" onClick={logout}>
                 Logout
               </li>
             </ul>
