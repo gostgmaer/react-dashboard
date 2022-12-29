@@ -1,0 +1,21 @@
+.Loading{
+    background-color: #9f9da7;
+    font-size: 1.6rem;
+    font-family: "Open Sans", sans-serif;
+    color: #2b3e51;
+    height: calc(100vh - 59px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .loadingWrapper{
+
+        display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    height: calc( 100vh - 59px)
+    }
+
+}

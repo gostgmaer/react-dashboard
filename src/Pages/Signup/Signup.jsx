@@ -1,17 +1,38 @@
 import React, { Fragment, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+
 import "./Signup.scss";
+import firebase from "../../Utils/Authentication/Firebase";
+import { useGlobalContext } from "../../Context/Context";
+import Loading from "../../Utils/Loading/Loading";
+import { useAuth } from "../../Context/Auth";
+
+
+
 const Signup = () => {
+  const { isloading, setIsloading,success, setSuccess,error, setError } = useGlobalContext();
+  const { login,currentUser, setCurrentUser } = useAuth();
+
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const [name, setname] = useState("");
-  const [successmessage, setSuccessmessage] = useState('Success');
-  const [errormsg, setErrormsg] = useState("Error");
-  const [isSuccess, setIsSuccess] = useState(null);
+
 
   const registerUser = () => {
+    setIsloading(true)
     const data = { email: email, password: pass, fname: name };
-    setIsSuccess(false)
+    createUserWithEmailAndPassword(firebase, email, pass)
+      .then((auth) => {
+        console.log(auth);
+        setError(null)
+       
+      })
+      .catch((error) => {
+        console.error(error);
+        setError(error.message);
+      });
+      setIsloading(false)
   };
 
   const MessageComponent = () => {
@@ -19,15 +40,32 @@ const Signup = () => {
       <div className="message">
         <div className="messageWrapper">
           <div className="content">
-            {isSuccess ? (
+            {error===null ?(
               <Fragment>
-                <div className="heading">{successmessage}</div>
-                <Link className="btn" to={"/login"}>Login</Link>
+                <div className="heading">{'egistration Success'}</div>
+                <Link className="btn" to={"/login"}>
+                  Login
+                </Link>
+                <button
+                  className="btn"
+                  onClick={() => {
+                    setSuccess(null);
+                    setError(null);
+                  }}>
+                  Signup Again
+                </button>
               </Fragment>
             ) : (
               <Fragment>
-                <div className="heading">{errormsg}</div>
-                <button className="btn" onClick={()=>setIsSuccess(null)} >Signup Again</button>
+                <div className="heading">{error}</div>
+                <button
+                  className="btn"
+                  onClick={() => {
+                    setSuccess(null);
+                    setError(null);
+                  }}>
+                  Signup Again
+                </button>
               </Fragment>
             )}
           </div>
@@ -36,65 +74,77 @@ const Signup = () => {
     );
   };
 
-  const SignupComp = () => {
-    return (
-      <div className="Signup">
-        <div className="signup-form-wrap">
-          <div className="heading">
-            <h2>Signup</h2>
-          </div>
-          <div className="signup-form">
-            <div className="form-control">
-              <input
-                type="text"
-                id="Name"
-                name="Name"
-                placeholder="Full Name"
-                required
-              />
-            </div>
-            <div className="form-control">
-              <input
-                type="email"
-                id="email"
-                name="email"
-                placeholder="Email Address"
-                required
-              />
-            </div>
-            <div className="form-control">
-              <input
-                type="password"
-                id="pass"
-                name="pass"
-                placeholder="**********"
-                required
-              />
-            </div>
-            <div className="btn-signup">
-              <button onClick={registerUser} id="signup" className="signupBtn">
-                Sign up
-              </button>
-            </div>
-          </div>
-          <div className="create-account-wrap">
-            <div className="signupaccount">
-              Have a Account? <Link to="/login">Login</Link>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  };
+  // const SignupComp = () => {
+  //   return (
+
+  //   );
+  // };
 
   return (
-    <Fragment>
-      {isSuccess !== null ? (
-        <MessageComponent></MessageComponent>
-      ) : (
-        <SignupComp></SignupComp>
-      )}
-    </Fragment>
+   <Fragment>{isloading?<Loading></Loading>: <Fragment>
+   {success !== null || error !== null ? (
+     <MessageComponent></MessageComponent>
+   ) : (
+     <div className="Signup">
+       <div className="signup-form-wrap">
+         <div className="heading">
+           <h2>Signup</h2>
+         </div>
+         <div className="signup-form">
+           <div className="form-control">
+             <input
+               type="text"
+               onChange={(e) => setname(e.target.value)}
+               id="Name"
+               name="Name"
+               autoComplete="off"
+               value={name}
+               placeholder="Full Name"
+               required
+             />
+           </div>
+           <div className="form-control">
+             <input
+               type="email"
+               onChange={(e) => setEmail(e.target.value)}
+               id="email"
+               autoComplete="off"
+               name="email"
+               placeholder="Email Address"
+               value={email}
+               required
+             />
+           </div>
+           <div className="form-control">
+             <input
+               type="password"
+               id="password"
+               value={pass}
+               onChange={(e) => setPass(e.target.value)}
+               name="password"
+               autoComplete="false"
+               placeholder="**********"
+               required
+             />
+           </div>
+           <div className="btn-signup">
+             <button
+               onClick={registerUser}
+               id="signup"
+               className="signupBtn">
+               Sign up
+             </button>
+           </div>
+         </div>
+         <div className="create-account-wrap">
+           <div className="signupaccount">
+             Have a Account? <Link to="/login">Login</Link>
+           </div>
+         </div>
+       </div>
+     </div>
+   )}
+ </Fragment>}</Fragment>
   );
 };
 

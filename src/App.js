@@ -5,24 +5,24 @@ import Sidebar from "./Components/Sidebar/Sidebar";
 import AppRouting from "./Utils/Routing/AppRouting";
 import OutsideAppRouting from "./Utils/Routing/OutsideAppRouting";
 import { useGlobalContext } from "./Context/Context";
+import Loading from "./Utils/Loading/Loading";
 
 function App() {
-  const { islouout, setIslouout } = useGlobalContext();
+  const { isloading, setIsloading} = useGlobalContext();
 
-  window.onclick=()=>{
-   console.log("event" );
-  }
+  // window.onclick=()=>{
+  //  console.log("event" );
+  // }
   return (
     <div className="App">
       <main>
       <header className="headerBlock">
               <Header ></Header>
             </header>
-        {islouout ? (
-          <OutsideAppRouting></OutsideAppRouting>
-        ) : (
+       
           <Fragment>
-            <AppRouting></AppRouting>
+            {isloading?<Loading></Loading>: <AppRouting></AppRouting>}
+           
             {/* <div className="container">
             
               <Sidebar></Sidebar>
@@ -32,7 +32,7 @@ function App() {
               </div>
             </div> */}
           </Fragment>
-        )}
+      
       </main>
     </div>
   );
