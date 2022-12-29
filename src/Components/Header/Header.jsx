@@ -12,15 +12,16 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../Context/Auth";
 const Header = ({}) => {
   const { islouout, toggleSidebarShow, setIslouout } = useGlobalContext();
-  const {currentUser} = useAuth()
+  const { currentUser } = useAuth();
 
   const [hamburger, setHamburger] = useState(false);
-
 
   const { logout } = useAuth();
   const navigate = useNavigate();
   const handleLogout = () => {
     logout();
+    localStorage.clear(); //for localStorage
+    sessionStorage.clear(); //for sessionStorage
     navigate("/login");
   };
 
@@ -74,11 +75,15 @@ const Header = ({}) => {
       <div className="left">
         <div className="logo">Gost Dashboard</div>
         <div className="toggle">
-          {currentUser===null ? "" : <MdMenu onClick={toggleSidebarShow}></MdMenu>}
+          {currentUser === null ? (
+            ""
+          ) : (
+            <MdMenu onClick={toggleSidebarShow}></MdMenu>
+          )}
         </div>
       </div>
       <div className="right">
-        {currentUser===null ? (
+        {currentUser === null ? (
           <div className="hamburgerUser">
             {" "}
             <div className="icons">

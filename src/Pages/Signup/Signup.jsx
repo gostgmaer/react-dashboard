@@ -8,17 +8,22 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const [name, setname] = useState("");
-  const [successmessage, setSuccessmessage] = useState("Success");
-  const [errormsg, setErrormsg] = useState("Error");
+  const [successmessage, setSuccessmessage] = useState(null);
+  const [errormsg, setErrormsg] = useState(null);
   const [isSuccess, setIsSuccess] = useState(null);
   const ProtectedRoute = useNavigate();
-
 
   const registerUser = () => {
     const data = { email: email, password: pass, fname: name };
     createUserWithEmailAndPassword(firebase, email, pass)
-      .then((auth) => {console.log(auth); {ProtectedRoute('/login')} })
-      .catch((error) => console.error(error));
+      .then((auth) => {
+        console.log(auth);
+        setSuccessmessage("signup Success");
+      })
+      .catch((error) => {
+        console.error(error);
+        setErrormsg(error.message);
+      });
     // setIsSuccess(false);
   };
 
@@ -27,17 +32,30 @@ const Signup = () => {
       <div className="message">
         <div className="messageWrapper">
           <div className="content">
-            {isSuccess ? (
+            {successmessage ? (
               <Fragment>
                 <div className="heading">{successmessage}</div>
                 <Link className="btn" to={"/login"}>
                   Login
                 </Link>
+                <button
+                  className="btn"
+                  onClick={() => {
+                    setSuccessmessage(null);
+                    setErrormsg(null);
+                  }}>
+                  Signup Again
+                </button>
               </Fragment>
             ) : (
               <Fragment>
                 <div className="heading">{errormsg}</div>
-                <button className="btn" onClick={() => setIsSuccess(null)}>
+                <button
+                  className="btn"
+                  onClick={() => {
+                    setSuccessmessage(null);
+                    setErrormsg(null);
+                  }}>
                   Signup Again
                 </button>
               </Fragment>
@@ -50,74 +68,76 @@ const Signup = () => {
 
   // const SignupComp = () => {
   //   return (
-   
+
   //   );
   // };
 
   return (
     <Fragment>
-      {isSuccess !== null ? (
+      {successmessage !== null || errormsg !== null ? (
         <MessageComponent></MessageComponent>
       ) : (
         <div className="Signup">
-        <div className="signup-form-wrap">
-          <div className="heading">
-            <h2>Signup</h2>
-          </div>
-          <div className="signup-form">
-            <div className="form-control">
-              <input
-                type="text"
-                onChange={(e)=>setname(e.target.value)}
-                id="Name"
-                name="Name"
-                autoComplete="off"
-                value={name}
-                placeholder="Full Name"
-                required
-              />
+          <div className="signup-form-wrap">
+            <div className="heading">
+              <h2>Signup</h2>
             </div>
-            <div className="form-control">
-              <input
-                type="email"
-                onChange={(e)=>setEmail(e.target.value)}
-                id="email"
-                autoComplete="off"
-                name="email"
-                placeholder="Email Address"
-                value={email}
-                required
-              />
+            <div className="signup-form">
+              <div className="form-control">
+                <input
+                  type="text"
+                  onChange={(e) => setname(e.target.value)}
+                  id="Name"
+                  name="Name"
+                  autoComplete="off"
+                  value={name}
+                  placeholder="Full Name"
+                  required
+                />
+              </div>
+              <div className="form-control">
+                <input
+                  type="email"
+                  onChange={(e) => setEmail(e.target.value)}
+                  id="email"
+                  autoComplete="off"
+                  name="email"
+                  placeholder="Email Address"
+                  value={email}
+                  required
+                />
+              </div>
+              <div className="form-control">
+                <input
+                  type="password"
+                  id="password"
+                  value={pass}
+                  onChange={(e) => setPass(e.target.value)}
+                  name="password"
+                  autoComplete="false"
+                  placeholder="**********"
+                  required
+                />
+              </div>
+              <div className="btn-signup">
+                <button
+                  onClick={registerUser}
+                  id="signup"
+                  className="signupBtn">
+                  Sign up
+                </button>
+              </div>
             </div>
-            <div className="form-control">
-              <input
-                type="password"
-                id="password"
-                value={pass}
-                onChange={(e) => setPass(e.target.value)}
-                name="password"
-                autoComplete="false"
-                placeholder="**********"
-                required
-              />
-            </div>
-            <div className="btn-signup">
-              <button onClick={registerUser} id="signup" className="signupBtn">
-                Sign up
-              </button>
-            </div>
-          </div>
-          <div className="create-account-wrap">
-            <div className="signupaccount">
-              Have a Account? <Link to="/login">Login</Link>
+            <div className="create-account-wrap">
+              <div className="signupaccount">
+                Have a Account? <Link to="/login">Login</Link>
+              </div>
             </div>
           </div>
         </div>
-      </div>
       )}
     </Fragment>
   );
 };
 
 export default Signup;
-

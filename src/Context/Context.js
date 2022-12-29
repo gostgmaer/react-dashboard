@@ -16,8 +16,8 @@ const AppProvider = ({ children }) => {
 
   return (
     <AppContext.Provider value={{ toggleSidebarShow,changelogout, toggleSidebar,islouout, setIslouout,isloadin, setIsloadin }}>
-      {" "}
-      {children}{" "}
+     
+      {children}
     </AppContext.Provider>
   );
 };
