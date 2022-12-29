@@ -1,11 +1,12 @@
 import React from 'react'
 import Spinner from 'react-spinkit'
-
+import'./loading.scss'
 
 const Loading = () => {
   return (
     <div className='Loading'>
-       <Spinner name='pacman'></Spinner>
+      <div className='loadingWrapper'> <Spinner name='pacman'></Spinner></div>
+      
     </div>
   )
 }

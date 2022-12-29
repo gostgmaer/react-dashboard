@@ -8,12 +8,21 @@ import {
   MdSearch,
 } from "react-icons/md";
 import { useGlobalContext } from "../../Context/Context";
-import { Link } from "react-router-dom";
-const Header = ({  }) => {
-  const { islouout,toggleSidebarShow,setIslouout } = useGlobalContext();
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../../Context/Auth";
+const Header = ({}) => {
+  const { islouout, toggleSidebarShow, setIslouout } = useGlobalContext();
+  const {currentUser} = useAuth()
 
- 
   const [hamburger, setHamburger] = useState(false);
+
+
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
 
   const RightElements = () => {
     return (
@@ -50,7 +59,7 @@ const Header = ({  }) => {
                 <Link to={"/profile"}>Profile</Link>
               </li>
               <hr />
-              <li className="dropdown-item" onClick={setIslouout}>
+              <li className="dropdown-item" onClick={handleLogout}>
                 Logout
               </li>
             </ul>
@@ -65,11 +74,11 @@ const Header = ({  }) => {
       <div className="left">
         <div className="logo">Gost Dashboard</div>
         <div className="toggle">
-         {islouout?'': <MdMenu onClick={toggleSidebarShow}></MdMenu>}
+          {currentUser===null ? "" : <MdMenu onClick={toggleSidebarShow}></MdMenu>}
         </div>
       </div>
       <div className="right">
-        {islouout ? (
+        {currentUser===null ? (
           <div className="hamburgerUser">
             {" "}
             <div className="icons">

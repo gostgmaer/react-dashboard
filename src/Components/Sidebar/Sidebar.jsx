@@ -27,7 +27,7 @@ const Sidebar = () => {
           <h3>Core</h3>
           <div className="element">
             <MdDashboard></MdDashboard>
-            <Link to={'/'}>Dashboard</Link>
+            <Link to={'/dashboard'}>Dashboard</Link>
           </div>
         </div>
         <div className="pages">

@@ -1,10 +1,11 @@
 import React, { useContext, useState } from "react";
-import App from "../App";
+
 
 const AppContext = React.createContext(null);
 const AppProvider = ({ children }) => {
   const [toggleSidebar, setToggleSidebar] = useState(false);
-  const [islouout, setIslouout] = useState(true);
+  const [islouout, setIslouout] = useState(false);
+  const [isloadin, setIsloadin] = useState(false);
 
   const changelogout = ()=>{
     setIslouout(!islouout)
@@ -14,7 +15,7 @@ const AppProvider = ({ children }) => {
   };
 
   return (
-    <AppContext.Provider value={{ toggleSidebarShow,changelogout, toggleSidebar,islouout, setIslouout }}>
+    <AppContext.Provider value={{ toggleSidebarShow,changelogout, toggleSidebar,islouout, setIslouout,isloadin, setIsloadin }}>
       {" "}
       {children}{" "}
     </AppContext.Provider>

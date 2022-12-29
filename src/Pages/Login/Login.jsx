@@ -1,10 +1,19 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import "./login.scss";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { useGlobalContext } from "../../Context/Context";
-const Login = () => {
-  const { changelogout } = useGlobalContext();
+import { signInWithEmailAndPassword } from "firebase/auth";
+import firebase from "../../Utils/Authentication/Firebase";
+import { AuthContext, useAuth } from "../../Context/Auth";
 
+const Login = () => {
+  const { login } = useAuth();
+
+  const navigate = useNavigate();
+  const ProtectedRoute = useNavigate();
+  const { changelogout,setIsloadin } = useGlobalContext();
+  const location = useLocation();
+  const redirectPath = location.state?.path || "/";
   const [username, setUsername] = useState("");
   const [pass, setPass] = useState("");
 
@@ -12,14 +21,29 @@ const Login = () => {
 
   useEffect(() => {}, []);
 
+  const handleLogin = () => {
+    login(username);
+    navigate(redirectPath, { replace: true });
+  };
+
   const loginsubmit = () => {
+    setIsloadin(true)
     const data = {
       user: username,
       pass: pass,
     };
     console.log(data);
-    changelogout();
-  };
+    // changelogout();
+    signInWithEmailAndPassword(firebase, username, pass)
+      .then((res) => {
+        console.log(res.user);
+        login(username);
+        navigate(redirectPath, { replace: true });
+      })
+      .catch((error) => console.error(error));
+
+      setIsloadin(false)
+  }
 
   return (
     <div className="Login">
