@@ -18,7 +18,7 @@ const Signup = () => {
   const [name, setname] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
+  const navigate = useNavigate();
   const registerUser = () => {
     if (pass !== confirmPass) {
       setError("password not match");
@@ -30,7 +30,8 @@ const Signup = () => {
         .then((auth) => {
           console.log(auth);
           setError(null);
-            
+          navigate('/')
+
         })
         .catch((error) => {
           setError(
