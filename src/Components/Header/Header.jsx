@@ -11,8 +11,8 @@ import { useGlobalContext } from "../../Context/Context";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../Context/Auth";
 const Header = ({}) => {
-  const { logout, toggleSidebarShow, setIslouout } = useGlobalContext();
-  const { currentUser } = useAuth();
+  const {  toggleSidebarShow, setIslouout } = useGlobalContext();
+  const { currentUser,logout,forgetPassword } = useAuth();
 
   const [hamburger, setHamburger] = useState(false);
 
@@ -20,9 +20,7 @@ const Header = ({}) => {
   const navigate = useNavigate();
   const handleLogout = () => {
     logout();
-    localStorage.clear(); //for localStorage
-    sessionStorage.clear(); //for sessionStorage
-    navigate("/login");
+    
   };
 
   const RightElements = () => {
@@ -60,7 +58,7 @@ const Header = ({}) => {
                 <Link to={"/profile"}>Profile</Link>
               </li>
               <hr />
-              <li className="dropdown-item" onClick={logout}>
+              <li className="dropdown-item" onClick={handleLogout}>
                 Logout
               </li>
             </ul>

@@ -221,6 +221,13 @@
       gap: 30px;
       .heading{
         font-size: 20px;
+        .errorMessage{
+          font-size: 15px;
+          div{
+            padding: 5px;
+            color: red;
+          }
+        }
 
       }
       .btn{
