@@ -67,6 +67,19 @@
       }
     }
   }
+  .message{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    flex-direction: column;
+    .heading{
+        color: red;
+    }
+    .btn{
+      font-size: 14px;
+    }
+  }
 
 //   #login-form-wrap {
 //     background-color: #fff;

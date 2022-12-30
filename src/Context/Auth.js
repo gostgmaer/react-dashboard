@@ -1,35 +1,79 @@
-import React, { useContext, useState, useEffect } from "react";
+import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  signInWithEmailAndPassword, signOut,sendPasswordResetEmail
+} from "firebase/auth";
+import React, { useState, useEffect, useContext } from "react";
 import firebase from "../Utils/Authentication/Firebase";
 
-const AuthContext = React.createContext(null);
 
- export const AuthProvider = ({ children }) => {
+
+// @ts-ignore
+const AuthContext = React.createContext();
+
+const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-
-
-  const login = (user)=>{
-    setCurrentUser(user)
-    console.log(currentUser);
-  }
- 
-  //   const signin = (email,pass)=>{
-  // return auth.signInWithEmailAndPassword(email,pass)
-    
-  // }
-  // const signup = (email,pass)=>{
-  //   return auth.createUserWithEmailAndPassword(email,pass)
+  const signup = (user, pass) => {
+    return createUserWithEmailAndPassword(firebase, user, pass);
+    // .then((userCredential) => {
+    //   setCurrentUser(userCredential.user);
+    //   setLoading(false)
+    // })
+    // .catch((e) => {
+    //   setError(e.message);
+    // });
+  };
+  const signin = async (user, pass) => {
+    return signInWithEmailAndPassword(firebase, user, pass);
+    // .then((res) => {
+    //   setCurrentUser(res.user);
+    //   setLoading(false)
+    // })
+    // .catch((e) => {
+    //   setError(e.message);
+    // });
+  };
+  const forgetPassword =  async (email)=>{
+    return  sendPasswordResetEmail(firebase,email);
      
-  //  }
+  }
+  const logout = async ( ) => {
+    return signOut(firebase);
+    // .then((res) => {
+    //   setCurrentUser(res.user);
+    //   setLoading(false)
+    // })
+    // .catch((e) => {
+    //   setError(e.message);
+    // });
+  };
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(firebase, (user) => {
+      setCurrentUser(user);
+      setLoading(false);
+    });
+    return unsubscribe;
+  }, []);
 
   return (
-    <AuthContext.Provider value={{ currentUser, setCurrentUser,login }}>
-      {children}
+    <AuthContext.Provider
+      value={{
+        signup,
+        currentUser,
+        signin,
+        loading,logout,forgetPassword
+      }}>
+      {!loading && children}
     </AuthContext.Provider>
   );
 };
+
 export const useAuth = () => {
   return useContext(AuthContext);
 };
 
-export { AuthContext };
+export { AuthContext, AuthProvider };

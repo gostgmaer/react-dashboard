@@ -19,15 +19,15 @@ const {setCurrentUser} = useAuth()
   const toggleSidebarShow = () => {
     setToggleSidebar(!toggleSidebar);
   };
-  const logout = ()=>{
-    setIsloading(true)
-    setCurrentUser(null)
-    setSuccess(null)
-    setError(null)
-    sessionStorage.clear()
-    localStorage.clear()
-    setIsloading(false)
-  }
+  // const logout = ()=>{
+  //   setIsloading(false)
+  //   setCurrentUser(null)
+  //   setSuccess(null)
+  //   setError(null)
+  //   sessionStorage.clear()
+  //   localStorage.clear()
+  //   setIsloading(false)
+  // }
 
   return (
     <AppContext.Provider
@@ -38,7 +38,7 @@ const {setCurrentUser} = useAuth()
         islouout,
         setIslouout,
         isloading,
-        setIsloading,success, setSuccess,error, setError,logout
+        setIsloading,success, setSuccess,error, setError
       }}>
       {children}
     </AppContext.Provider>

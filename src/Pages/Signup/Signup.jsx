@@ -8,31 +8,68 @@ import { useGlobalContext } from "../../Context/Context";
 import Loading from "../../Utils/Loading/Loading";
 import { useAuth } from "../../Context/Auth";
 
-
-
 const Signup = () => {
-  const { isloading, setIsloading,success, setSuccess,error, setError } = useGlobalContext();
-  const { login,currentUser, setCurrentUser } = useAuth();
+  const { isloading, setIsloading, success, setSuccess } = useGlobalContext();
+  const { signup, currentUser,setCurrentUser } = useAuth();
 
   const [email, setEmail] = useState("");
+  const [confirmPass, setConfirmPass] = useState("");
   const [pass, setPass] = useState("");
   const [name, setname] = useState("");
-
-
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
   const registerUser = () => {
-    setIsloading(true)
-    const data = { email: email, password: pass, fname: name };
-    createUserWithEmailAndPassword(firebase, email, pass)
-      .then((auth) => {
-        console.log(auth);
-        setError(null)
-       
-      })
-      .catch((error) => {
-        console.error(error);
-        setError(error.message);
-      });
-      setIsloading(false)
+    if (pass !== confirmPass) {
+      setError("password not match");
+    } else {
+      setLoading(true);
+      const data = { email: email, password: pass, fname: name };
+
+      createUserWithEmailAndPassword(firebase, email, pass)
+        .then((auth) => {
+          console.log(auth);
+          setError(null);
+          navigate('/')
+
+        })
+        .catch((error) => {
+          setError(
+            <div className="errorMessage">
+              <div className="title">Faild to Create Your Account</div>{" "}
+              <div className="error">{error.message}</div>
+            </div>
+          );
+        });
+    }
+    setLoading(false);
+  };
+
+  const signupHandler = async () => {
+    const data = {
+      cpass: confirmPass,
+      pass: pass,
+      email: email,
+    };
+    if (pass !== confirmPass) {
+      setError("password not match");
+    } else {
+      try {
+        setLoading(true);
+        setError("");
+        await signup(email, pass);
+      } catch (e) {
+        setError(
+          <div className="errorMessage">
+            <div className="title">Faild to Create Your Account</div>{" "}
+            <div className="error">{e.message}</div>
+          </div>
+        );
+      }
+    }
+
+    console.log(data);
+    setLoading(false);
   };
 
   const MessageComponent = () => {
@@ -40,20 +77,12 @@ const Signup = () => {
       <div className="message">
         <div className="messageWrapper">
           <div className="content">
-            {error===null ?(
+            {error === "" ? (
               <Fragment>
-                <div className="heading">{'egistration Success'}</div>
+                <div className="heading">{"Registration Success"}</div>
                 <Link className="btn" to={"/login"}>
                   Login
                 </Link>
-                <button
-                  className="btn"
-                  onClick={() => {
-                    setSuccess(null);
-                    setError(null);
-                  }}>
-                  Signup Again
-                </button>
               </Fragment>
             ) : (
               <Fragment>
@@ -61,7 +90,6 @@ const Signup = () => {
                 <button
                   className="btn"
                   onClick={() => {
-                    setSuccess(null);
                     setError(null);
                   }}>
                   Signup Again
@@ -81,70 +109,83 @@ const Signup = () => {
   // };
 
   return (
-   <Fragment>{isloading?<Loading></Loading>: <Fragment>
-   {success !== null || error !== null ? (
-     <MessageComponent></MessageComponent>
-   ) : (
-     <div className="Signup">
-       <div className="signup-form-wrap">
-         <div className="heading">
-           <h2>Signup</h2>
-         </div>
-         <div className="signup-form">
-           <div className="form-control">
-             <input
-               type="text"
-               onChange={(e) => setname(e.target.value)}
-               id="Name"
-               name="Name"
-               autoComplete="off"
-               value={name}
-               placeholder="Full Name"
-               required
-             />
-           </div>
-           <div className="form-control">
-             <input
-               type="email"
-               onChange={(e) => setEmail(e.target.value)}
-               id="email"
-               autoComplete="off"
-               name="email"
-               placeholder="Email Address"
-               value={email}
-               required
-             />
-           </div>
-           <div className="form-control">
-             <input
-               type="password"
-               id="password"
-               value={pass}
-               onChange={(e) => setPass(e.target.value)}
-               name="password"
-               autoComplete="false"
-               placeholder="**********"
-               required
-             />
-           </div>
-           <div className="btn-signup">
-             <button
-               onClick={registerUser}
-               id="signup"
-               className="signupBtn">
-               Sign up
-             </button>
-           </div>
-         </div>
-         <div className="create-account-wrap">
-           <div className="signupaccount">
-             Have a Account? <Link to="/login">Login</Link>
-           </div>
-         </div>
-       </div>
-     </div>
-   )}
- </Fragment>}</Fragment>
+    <Fragment>
+      {isloading ? (
+        <Loading></Loading>
+      ) : (
+        <Fragment>
+          {success !== null || error !== null ? (
+            <MessageComponent></MessageComponent>
+          ) : (
+            <div className="Signup">
+              <div className={`signup-form-wrap ${error && "message"}`}>
+                {error ? (
+                  <MessageComponent />
+                ) : (
+                  <Fragment>
+                    {" "}
+                    <div className="heading">
+                      <h2>Signup</h2>
+                    </div>
+                    <div className="signup-form">
+                      <div className="form-control">
+                        <input
+                          type="email"
+                          onChange={(e) => setEmail(e.target.value)}
+                          id="email"
+                          autoComplete="off"
+                          name="email"
+                          placeholder="Email Address"
+                          value={email}
+                          required
+                        />
+                      </div>
+                      <div className="form-control">
+                        <input
+                          type="password"
+                          id="password"
+                          value={pass}
+                          onChange={(e) => setPass(e.target.value)}
+                          name="password"
+                          autoComplete="false"
+                          placeholder="Password"
+                          required
+                        />
+                      </div>
+                      <div className="form-control">
+                        <input
+                          type="password"
+                          onChange={(e) => setConfirmPass(e.target.value)}
+                          id="confirmPass"
+                          name="confirmPass"
+                          autoComplete="off"
+                          value={confirmPass}
+                          placeholder="confirm Password"
+                          required
+                        />
+                      </div>
+                      <div className="btn-signup">
+                        <button
+                          onClick={registerUser}
+                          id="signup" disabled={loading}
+                          className="signupBtn">
+                          Sign up
+                        </button>
+                      </div>
+                    </div>
+                    <div className="create-account-wrap">
+                      <div className="signupaccount">
+                        Have a Account? <Link to="/login">Login</Link>
+                      </div>
+                    </div>
+                  </Fragment>
+                )}
+              </div>
+            </div>
+          )}
+        </Fragment>
+      )}
+    </Fragment>
   );
 };
 
